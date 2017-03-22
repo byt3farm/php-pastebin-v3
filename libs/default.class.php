@@ -145,7 +145,7 @@ class StartUp {
 			  '".$this->makeId()."',
 			  '".$db->escape($title)."',
 			  '".$db->escape($lang)."',
-			  '".htmlspecialchars(mysql_escape_string($paste))."',
+			  '".htmlspecialchars($db->escpae($paste))."',
 			  '$date',
 			  '".$db->escape($expire)."',
 			  '".$db->escape($exposure)."'
@@ -164,7 +164,7 @@ class StartUp {
 						title='".mysql_real_escape_string($title)."',
 						lang='$lang',
 						date='$date',
-						paste='".htmlspecialchars(mysql_escape_string($paste))."'
+						paste='".htmlspecialchars($db->escpae($paste))."'
 			 WHERE uniqueid = '$uniqueid'";
 		$db->query($query);
  
@@ -741,7 +741,8 @@ class pasteUsers extends startUp {
 	}
 	###
 	function sqlesc($x) {
-	  return '\''.mysql_real_escape_string($x).'\'';
+            global $db;
+            return '\''.$db->escpae($x).'\'';
 	}
 	###
 	function logout($redirect=true){
